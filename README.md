@@ -82,7 +82,7 @@ Start the server
 #### Create
 
 ```bash
-  php artisan create:category {name} {--parent=?} # --parent : Add category with parent category (Optional)
+  php artisan create:category {name} {--parent=?} # Add category with parent category (Optional)
 
 ```
 
@@ -91,6 +91,21 @@ Start the server
 ```bash
   php artisan delete:category {id}
 ```
+
+### Product
+
+#### Create
+
+```bash
+  php artisan create:product {name} {description} {price} {img_path} {--categories}
+```
+
+#### Delete
+
+```bash
+  php artisan delete:product {id}
+```
+
 
 
 ## Eloquent queries in the repository layer
@@ -103,6 +118,10 @@ app
 │   ├── Category
 ├───────├── CategoryRepository.php
 ├───────├── EloquentRepository.php
+│   ├── Product
+├───────├── ProductRepository.php
+├───────├── EloquentRepository.php
+
 ```
 
 
