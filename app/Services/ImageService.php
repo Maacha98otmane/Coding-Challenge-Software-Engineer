@@ -31,7 +31,6 @@ class ImageService implements ImageServiceContract
         if (!strstr($file->getMimeType(), 'image')) {
             throw new InvalidArgumentException('The file must be an image');
         }
-        dd($file->getExtension());
         $image = Image::make($file)->encode($file->getExtension() !== 'tmp' ? $file->getExtension() : 'png');
         $path = "images/{$product_id}.{$image->extension}";
         $this->storage->put($path, $image);
