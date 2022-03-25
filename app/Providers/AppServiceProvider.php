@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\CategoryServiceContract;
+use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Category\EloquentCategory;
+use App\Services\CategoryService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(CategoryRepository::class, EloquentCategory::class);
+
+        $this->app->singleton(CategoryServiceContract::class, CategoryService::class);
     }
 
     /**
@@ -23,6 +29,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }
