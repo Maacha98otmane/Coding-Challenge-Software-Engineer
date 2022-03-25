@@ -11,6 +11,9 @@
 - [Category definition](#category-definition)
 - [Run Locally](#run-locally)
   - [Installation](#Installation)
+- [Features](#features)
+  - [Run Command](#cli-reference)
+- [Repository Layer](#eloquent-queries-in-the-repository-layer)
 - [License](#license)
 
 ## Product definition
@@ -68,6 +71,38 @@ Start the server
 
 ```bash
   php artisan serve
+```
+
+## Features
+
+### CLI Reference
+
+### Category
+
+#### Create
+
+```bash
+  php artisan create:category {name} {--parent=?} # --parent : Add category with parent category (Optional)
+
+```
+
+#### Delete
+
+```bash
+  php artisan delete:category {id}
+```
+
+
+## Eloquent queries in the repository layer
+
+### Wrap Eloquent queries in the repository layer
+
+```
+app
+├── Repository
+│   ├── Category
+├───────├── CategoryRepository.php
+├───────├── EloquentRepository.php
 ```
 
 
