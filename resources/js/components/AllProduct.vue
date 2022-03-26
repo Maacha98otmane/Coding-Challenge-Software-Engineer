@@ -1,9 +1,27 @@
 <template>
     <div class="text-center">
         <h3 >Products</h3>
+        <form>
+            <div class="form-row align-items-center justify-content-center">
+                <div class="form-group col-auto">
+                    <label for="sort-by">Sort By</label>
+                    <select v-model="options.sortBy" class="form-control">
+                        <option value="name">Name</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+                <div v-if="options.sortBy" class="form-group col-auto">
+                    <label for="sortingType">Sorting Type</label>
+                    <select v-model="options.sortingType" class="form-control">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+            </div>
+        </form>
         <div class="mt-4">
             <div v-for="(product, index) in products_data" :key="product.name + index" class="card mb-3">
-                <img class="card-img-top" style="max-height: 18rem; object-fit: cover" :src="'/storage/' + product.img_path" alt="Card image cap">
+                <img class="card-img-top" style="max-height: 18rem; object-fit: cover" :src="'/storage/app/' + product.img_path" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Name: {{ product.name }}</h5>
                     <p class="card-text">Description: {{ product.description }}</p>

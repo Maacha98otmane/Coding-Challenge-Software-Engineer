@@ -3,7 +3,7 @@
         <h3 class="text-center">Create Category</h3>
         <div class="row">
             <div class="col-md-6">
-                <form @submit.prevent="addProduct">
+                <form @submit.prevent="addCategory">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" v-model="category.name">
@@ -23,7 +23,7 @@
             }
         },
         methods: {
-            addProduct() {
+            addCategory() {
                 this.axios
                     .post('/api/v1/categories', this.category)
                     .then(response => (

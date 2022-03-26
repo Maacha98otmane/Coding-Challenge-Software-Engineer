@@ -32,7 +32,7 @@
                 <td>{{ category.name }}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <button class="btn btn-danger" @click="deleteProduct(category.id)">Delete</button>
+                        <button class="btn btn-danger" @click="deleteCategory(category.id)">Delete</button>
                     </div>
                 </td>
             </tr>
@@ -64,7 +64,7 @@ export default {
 
             }
         },
-         deleteProduct(id) { 
+         deleteCategory(id) { 
                 this.axios.delete(`/api/v1/categories/${id}`)
                     .then(response => {
                                this.fetch();

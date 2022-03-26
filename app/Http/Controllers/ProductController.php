@@ -42,6 +42,7 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
+        dd($request);
         $this->ProductService->create($request->name, $request->description, $request->price, $request->file('image'), $request->categories ?? []);
     }
 
