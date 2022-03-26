@@ -13,6 +13,7 @@
   - [Installation](#Installation)
 - [Features](#features)
   - [Run Command](#cli-reference)
+- [Run Tests](#testing)
 - [Repository Layer](#eloquent-queries-in-the-repository-layer)
 - [License](#license)
 
@@ -106,7 +107,13 @@ Start the server
   php artisan delete:product {id}
 ```
 
+## Testing
 
+#### Product creation can be covered by automated tests
+
+```bash
+  php artisan test
+```
 
 ## Eloquent queries in the repository layer
 
