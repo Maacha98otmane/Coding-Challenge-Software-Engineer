@@ -21,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::resource('products', ProductController::class);
-    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class)->except('create', 'show', 'edit', 'update');
+    Route::resource('categories', CategoryController::class)->except('create', 'show', 'edit', 'update');
 });

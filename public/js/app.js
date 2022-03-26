@@ -5653,7 +5653,6 @@ __webpack_require__.r(__webpack_exports__);
     addProduct: function addProduct() {
       var _this = this;
 
-      console.log("sdsd");
       this.axios.post('/api/v1/products', this.product).then(function (response) {
         return _this.$router.push({
           name: 'home'
