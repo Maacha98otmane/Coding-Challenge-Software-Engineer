@@ -16,5 +16,22 @@
 </template>
  
 <script>
-    
+    export default {
+        data() {
+            return {
+                category: {}
+            }
+        },
+        methods: {
+            addProduct() {
+                this.axios
+                    .post('/api/v1/categories', this.category)
+                    .then(response => (
+                        this.$router.push({ name: 'Allcategory' })
+                    ))
+                    .catch(err => console.log(err))
+                    .finally(() => this.loading = false)
+            }
+        }
+    }
 </script>

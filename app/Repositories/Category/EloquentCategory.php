@@ -3,6 +3,7 @@
 namespace App\Repositories\Category;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCategory implements CategoryRepository
 {
@@ -26,5 +27,10 @@ class EloquentCategory implements CategoryRepository
     public function find(int $id): Category
     {
         return $this->model->findOrFail($id);
+    }
+
+    public function getInOrder(string $sortBy, string $type): Collection
+    {
+        return $this->model->query()->orderBy($sortBy, $type)->get();
     }
 }

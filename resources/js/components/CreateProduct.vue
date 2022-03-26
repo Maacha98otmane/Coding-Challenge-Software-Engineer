@@ -28,5 +28,22 @@
 </template>
  
 <script>
-    
+     export default {
+        data() {
+            return {
+                product: {}
+            }
+        },
+        methods: {
+            addProduct() {
+            console.log("sdsd");
+                this.axios.post('/api/v1/products', this.product)
+                    .then(response => (
+                        this.$router.push({ name: 'home' })
+                    ))
+                    .catch(err => console.log(err))
+                    .finally(() => this.loading = false)
+            }
+        }
+    }
 </script>

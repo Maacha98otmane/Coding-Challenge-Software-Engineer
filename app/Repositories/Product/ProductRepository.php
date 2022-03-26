@@ -17,5 +17,5 @@ interface ProductRepository
 
     public function addCategories(int $id, array $categories): void;
 
-   
+    public function getInOrder(string $sortBy, string $type): Collection;
 }

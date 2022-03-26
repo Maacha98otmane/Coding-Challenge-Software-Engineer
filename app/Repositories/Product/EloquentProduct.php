@@ -3,6 +3,7 @@
 namespace App\Repositories\Product;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentProduct implements ProductRepository
 {
@@ -37,5 +38,10 @@ class EloquentProduct implements ProductRepository
     public function addCategories(int $id, array $categories): void
     {
         $this->model->find($id)->categories()->sync($categories);
+    }
+
+    public function getInOrder(string $sortBy, string $type): Collection
+    {
+        return $this->model->query()->orderBy($sortBy, $type)->get();
     }
 }
