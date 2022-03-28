@@ -67,7 +67,7 @@ export default {
          deleteCategory(id) { 
                 this.axios.delete(`/api/v1/categories/${id}`)
                     .then(response => {
-                               this.fetch();
+                        this.categories_data = this.categories_data.filter(category => category.id !== id);
                     });
             }
     },

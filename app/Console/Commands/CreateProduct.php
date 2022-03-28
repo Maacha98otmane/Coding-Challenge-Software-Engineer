@@ -13,7 +13,7 @@ class CreateProduct extends Command
      *
      * @var string
      */
-    protected $signature = 'create:product {name} {description} {price} {img_path} {--categories= : (optional)}';
+    protected $signature = 'create:product {name} {description} {price} {image} {--categories= : (optional)}';
 
     /**
      * The console command description.
@@ -44,13 +44,14 @@ class CreateProduct extends Command
             $productService->create($this->argument('name'),
                                     $this->argument('description'),
                                     $this->argument('price'),
-                                    $this->argument('img_path'),
+                                    $this->argument('image'),
                                     $categories);
             $this->info('Product has been added with success');
 
             return 0;
         } catch (Exception $e) {
-                $this->error($e->getMessage());
+            $this->error($e->getMessage());
+
             return 1;
         }
     }

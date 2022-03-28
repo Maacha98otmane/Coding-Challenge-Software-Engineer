@@ -13,7 +13,7 @@ class CreateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'required|string|min:2|max:1000',
             'price' => 'required|numeric',
             'description' => 'required|string|min:5',
-            'img_path' => 'required|mimes:jpg,jpeg,png,gif',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
             'categories.*' => 'nullable|exists:categories,id',
         ];
     }

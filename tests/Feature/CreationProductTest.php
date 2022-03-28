@@ -28,7 +28,7 @@ class CreationProductTest extends TestCase
             'price' => 122.22,
             'description' => 'Description lorem ipsum',
             'categories' => 1,
-            'img_path' => UploadedFile::fake()->image('testing.jpg'),
+            'image' => UploadedFile::fake()->image('testing.jpg'),
         ]);
         $response->assertStatus(201);
     }

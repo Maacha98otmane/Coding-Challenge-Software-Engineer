@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <h3 >Products</h3>
-        <form>
+        <form >
             <div class="form-row align-items-center justify-content-center">
                 <div class="form-group col-auto">
                     <label for="sort-by">Sort By</label>
@@ -21,7 +21,7 @@
         </form>
         <div class="mt-4">
             <div v-for="(product, index) in products_data" :key="product.name + index" class="card mb-3">
-                <img class="card-img-top" style="max-height: 18rem; object-fit: cover" :src="'/storage/app/' + product.img_path" alt="Card image cap">
+                <img class="card-img-top" style="max-height: 18rem; object-fit: cover" :src="'../storage/' + product.image" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Name: {{ product.name }}</h5>
                     <p class="card-text">Description: {{ product.description }}</p>
@@ -62,7 +62,7 @@ export default {
          deleteProduct(id) { 
                 this.axios.delete(`/api/v1/products/${id}`)
                     .then(response => {
-                               this.fetch();
+                        this.products_data = this.products_data.filter(product => product.id !== id);
                     });
             }
     },

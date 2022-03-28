@@ -98,7 +98,7 @@ Start the server
 #### Create
 
 ```bash
-  php artisan create:product {name} {description} {price} {img_path} {--categories}
+  php artisan create:product {name} {description} {price} {image} {--categories}
 ```
 
 #### Delete

@@ -5408,7 +5408,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.axios["delete"]("/api/v1/categories/".concat(id)).then(function (response) {
-        _this2.fetch();
+        _this2.categories_data = _this2.categories_data.filter(function (category) {
+          return category.id !== id;
+        });
       });
     }
   },
@@ -5530,7 +5532,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.axios["delete"]("/api/v1/products/".concat(id)).then(function (response) {
-        _this2.fetch();
+        _this2.products_data = _this2.products_data.filter(function (product) {
+          return product.id !== id;
+        });
       });
     }
   },
@@ -5643,26 +5647,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: {}
+      name: '',
+      description: '',
+      price: '',
+      image: '',
+      categories: '',
+      categoryi: []
     };
   },
   methods: {
     addProduct: function addProduct() {
       var _this = this;
 
-      this.axios.post('/api/v1/products', this.product).then(function (response) {
+      var data = new FormData();
+      data.append("name", this.name);
+      data.append("description", this.description);
+      data.append("price", this.price);
+      data.append("image", this.image);
+      data.append("categories", this.categories);
+      this.axios.post('/api/v1/products', data, {
+        Headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         return _this.$router.push({
           name: 'home'
         });
       })["catch"](function (err) {
         return console.log(err);
-      })["finally"](function () {
-        return _this.loading = false;
       });
+    },
+    getCategory: function getCategory() {
+      var _this2 = this;
+
+      this.axios.get('/api/v1/categories').then(function (response) {
+        return _this2.categoryi = response.data.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    onChange: function onChange(e) {
+      this.image = e.target.files[0];
     }
+  },
+  mounted: function mounted() {
+    this.getCategory();
   }
 });
 
@@ -29774,7 +29808,7 @@ var render = function () {
               staticClass: "card-img-top",
               staticStyle: { "max-height": "18rem", "object-fit": "cover" },
               attrs: {
-                src: "/storage/app/" + product.img_path,
+                src: "../storage/" + product.image,
                 alt: "Card image cap",
               },
             }),
@@ -29923,6 +29957,7 @@ var render = function () {
         _c(
           "form",
           {
+            attrs: { enctype: "multipart/form-data" },
             on: {
               submit: function ($event) {
                 $event.preventDefault()
@@ -29939,19 +29974,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.name,
-                    expression: "product.name",
+                    value: _vm.name,
+                    expression: "name",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { type: "text" },
-                domProps: { value: _vm.product.name },
+                domProps: { value: _vm.name },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "name", $event.target.value)
+                    _vm.name = $event.target.value
                   },
                 },
               }),
@@ -29965,19 +30000,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.description,
-                    expression: "product.description",
+                    value: _vm.description,
+                    expression: "description",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { type: "text" },
-                domProps: { value: _vm.product.description },
+                domProps: { value: _vm.description },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "description", $event.target.value)
+                    _vm.description = $event.target.value
                   },
                 },
               }),
@@ -29991,19 +30026,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.price,
-                    expression: "product.price",
+                    value: _vm.price,
+                    expression: "price",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { type: "number" },
-                domProps: { value: _vm.product.price },
+                domProps: { value: _vm.price },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "price", $event.target.value)
+                    _vm.price = $event.target.value
                   },
                 },
               }),
@@ -30014,35 +30049,51 @@ var render = function () {
               _vm._v(" "),
               _c("input", {
                 staticClass: "form-control",
-                attrs: { type: "file" },
-                on: { change: _vm.product.image },
+                attrs: { name: "image", id: "image", type: "file" },
+                on: { change: _vm.onChange },
               }),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Category")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.product.categories,
-                    expression: "product.categories",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number" },
-                domProps: { value: _vm.product.categories },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.product, "categories", $event.target.value)
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.categories,
+                      expression: "categories",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.categories = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
                   },
                 },
-              }),
+                _vm._l(_vm.categoryi, function (category) {
+                  return _c(
+                    "option",
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                }),
+                0
+              ),
             ]),
             _vm._v(" "),
             _c(

@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        return CategoryResource::collection($this->category->getInOrder($request->query('sortBy'), $request->query('sortingType')));
+        return CategoryResource::collection($this->category->getInOrder($request->query('sortBy') ?? 'name', $request->query('sortingType') ?? 'asc'));
     }
 
     public function store(CreateCategoryRequest $request)

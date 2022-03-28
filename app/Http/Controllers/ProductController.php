@@ -23,12 +23,12 @@ class ProductController extends Controller
 
     public function store(CreateProductRequest $request)
     {
-        dd($request);
-        $this->ProductService->create($request->name, $request->description, $request->price, $request->file('image'), $request->categories ?? []);
+        // dd($request->all());
+        $this->ProductService->create($request->name, $request->description, $request->price, $request->image, [$request->categories] ?? []);
     }
 
     public function destroy($id)
     {
-        $this->ProductService->delete($id);
+        $this->ProductService->deleteProduct($id);
     }
 }

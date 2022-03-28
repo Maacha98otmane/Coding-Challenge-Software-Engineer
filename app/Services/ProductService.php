@@ -23,7 +23,7 @@ class ProductService implements ProductServiceContract
             $this->product->addCategories($product->id, $categories);
         }
         $path = $this->imageService->setPathImage($image)->saveImage($product->id);
-        $this->product->update($product->id, ['img_path' => $path]);
+        $this->product->update($product->id, ['image' => $path]);
 
         return $product->id;
     }
