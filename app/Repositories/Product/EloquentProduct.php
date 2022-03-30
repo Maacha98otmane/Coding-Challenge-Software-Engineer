@@ -7,41 +7,34 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EloquentProduct implements ProductRepository
 {
-    private $model;
-
-    public function __construct(Product $model)
-    {
-        $this->model = $model::query();
-    }
-
     public function create(array $data): Product
     {
-        return $this->model->create($data);
+        return Product::query()->create($data);
     }
 
     public function update(int $id, array $data): bool
     {
-        return $this->model->findOrFail($id)->update($data);
+        return Product::query()->findOrFail($id)->update($data);
     }
 
     public function find(int $id): Product
     {
-        return $this->model->findOrFail($id);
+        return Product::query()->findOrFail($id);
     }
 
     public function delete(int $id): void
     {
-        $product = $this->find($id);
+        $product = Product::query()->find($id);
         $product->delete();
     }
 
     public function addCategories(int $id, array $categories): void
     {
-        $this->model->find($id)->categories()->sync($categories);
+        Product::query()->find($id)->categories()->sync($categories);
     }
 
     public function getInOrder(string $sortBy, string $type): Collection
     {
-        return $this->model->orderBy($sortBy, $type)->get();
+        return Product::query()->orderBy($sortBy, $type)->get();
     }
 }

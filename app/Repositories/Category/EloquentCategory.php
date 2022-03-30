@@ -7,30 +7,23 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCategory implements CategoryRepository
 {
-    private $model;
-
-    public function __construct(Category $model)
-    {
-        $this->model = $model::query();
-    }
-
     public function create(array $data): Category
     {
-        return $this->model->create($data);
+        return Category::query()->create($data);
     }
 
     public function delete(int $id): void
     {
-        $this->model->findOrFail($id)->delete();
+        Category::query()->findOrFail($id)->delete();
     }
 
     public function find(int $id): Category
     {
-        return $this->model->findOrFail($id);
+        return Category::query()->findOrFail($id);
     }
 
     public function getInOrder(string $sortBy, string $type): Collection
     {
-        return $this->model->orderBy($sortBy, $type)->get();
+        return Category::query()->orderBy($sortBy, $type)->get();
     }
 }
