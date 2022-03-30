@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Contracts\CategoryServiceContract;
-use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Validator;
 
 class CreateCategory extends Command
 {
@@ -39,15 +39,25 @@ class CreateCategory extends Command
      */
     public function handle(CategoryServiceContract $categoryService)
     {
-        try {
-            $categoryService->create($this->argument('name'), $this->option('parent'));
+        $name = $this->argument('name');
+        $validator = Validator::make([
+                'name' => $name,
+            ], [
+                'name' => ['required', 'min:3'],
+            ]);
+        if ($validator->fails()) {
+            $this->info('Category not created. See error messages below:');
+
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+
+            return 1;
+        } else {
+            $categoryService->create($name, $this->option('parent'));
             $this->info('Category has been added with success');
 
             return 0;
-        } catch (Exception $e) {
-            $this->error($e->getMessage());
-
-            return 1;
         }
     }
 }

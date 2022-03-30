@@ -11,7 +11,7 @@ class EloquentProduct implements ProductRepository
 
     public function __construct(Product $model)
     {
-        $this->model = $model;
+        $this->model = $model::query();
     }
 
     public function create(array $data): Product
@@ -42,6 +42,6 @@ class EloquentProduct implements ProductRepository
 
     public function getInOrder(string $sortBy, string $type): Collection
     {
-        return $this->model->query()->orderBy($sortBy, $type)->get();
+        return $this->model->orderBy($sortBy, $type)->get();
     }
 }

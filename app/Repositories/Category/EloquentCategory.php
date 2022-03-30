@@ -11,7 +11,7 @@ class EloquentCategory implements CategoryRepository
 
     public function __construct(Category $model)
     {
-        $this->model = $model;
+        $this->model = $model::query();
     }
 
     public function create(array $data): Category
@@ -31,6 +31,6 @@ class EloquentCategory implements CategoryRepository
 
     public function getInOrder(string $sortBy, string $type): Collection
     {
-        return $this->model->query()->orderBy($sortBy, $type)->get();
+        return $this->model->orderBy($sortBy, $type)->get();
     }
 }

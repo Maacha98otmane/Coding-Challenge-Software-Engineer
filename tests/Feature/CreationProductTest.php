@@ -22,14 +22,16 @@ class CreationProductTest extends TestCase
 
     public function test_making_an_api_request()
     {
-        Storage::fake('photos');
-        $response = $this->post('/api/v1/products', [
-            'name' => 'Product test',
-            'price' => 122.22,
-            'description' => 'Description lorem ipsum',
-            'categories' => 1,
-            'image' => UploadedFile::fake()->image('testing.jpg'),
+        Storage::fake('images');
+
+        $response = $this->post('/api/products', [
+            'name' => 'Test Product',
+            'description' => 'Test Description',
+            'price' => 10,
+            'image' => UploadedFile::fake()->image('test.jpg'),
+            'categories' => [1],
         ]);
+
         $response->assertStatus(201);
     }
 }

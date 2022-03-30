@@ -10,4 +10,5 @@ interface CategoryServiceContract
 
     public function delete(int $id): void;
 
+    public function getInOrder(string $sortBy, string $type): Collection;
 }

@@ -5,31 +5,37 @@ namespace App\Services;
 use App\Contracts\ImageServiceContract;
 use App\Contracts\ProductServiceContract;
 use App\Repositories\Product\ProductRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductService implements ProductServiceContract
 {
-    private $product;
+    private $productRepository;
 
-    public function __construct(ProductRepository $product, ImageServiceContract $imageService)
+    public function __construct(ProductRepository $productRepository, ImageServiceContract $imageService)
     {
-        $this->product = $product;
+        $this->productRepository = $productRepository;
         $this->imageService = $imageService;
     }
 
     public function create(string $name, string $description, float $price, string $image, array $categories = []): int
     {
-        $product = $this->product->create(['name' => $name, 'description' => $description, 'price' => $price]);
+        $product = $this->productRepository->create(['name' => $name, 'description' => $description, 'price' => $price]);
         if ($categories) {
-            $this->product->addCategories($product->id, $categories);
+            $this->productRepository->addCategories($product->id, $categories);
         }
         $path = $this->imageService->setPathImage($image)->saveImage($product->id);
-        $this->product->update($product->id, ['image' => $path]);
+        $this->productRepository->update($product->id, ['image' => $path]);
 
         return $product->id;
     }
 
     public function deleteProduct(int $id): void
     {
-        $this->product->delete($id);
+        $this->productRepository->delete($id);
+    }
+
+    public function getInOrder(string $sortBy, string $type): Collection
+    {
+        return $this->productRepository->getInOrder($sortBy, $type);
     }
 }
